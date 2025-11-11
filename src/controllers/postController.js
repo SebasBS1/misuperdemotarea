@@ -37,6 +37,7 @@ export const deletePost = async (req, res) => {
         const deletePostQuery = `
             DELETE FROM posts
             WHERE id = $1
+            RETURNING id, content, created_at;
         `;
         const result = await query(deletePostQuery, [id]);
         res.json(result.rows[0]);
