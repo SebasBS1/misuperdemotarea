@@ -39,15 +39,10 @@ export const deletePost = async (req, res) => {
             WHERE id = $1
             RETURNING id, content, created_at;
         `;
-        if (result.rowCount === 0) {
-            return res.status(404).json({ error: 'Post no encontrado' });
-        }
-
-        res.json({
-            message: 'Post eliminado correctamente',
-            post: result.rows[0]
-        });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+        
+        const result = await query(deletePostQuery);
+        res.json(result.rows)
+    }catch (error) {
+        res.status(400).json({error: error.message});
     }     
 };
