@@ -41,7 +41,7 @@ export const deletePost = async (req, res) => {
         `;
         
         const result = await query(deletePostQuery, [id]);
-        res.json(result.rows)
+        res.json(result.rows[0])
     }catch (error) {
         res.status(400).json({error: error.message});
     }     
